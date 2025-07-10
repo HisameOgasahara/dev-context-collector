@@ -1,11 +1,34 @@
-# Changelog
+# 변경 기록 (Changelog)
 
-All notable changes to this project will be documented in this file.
+이 프로젝트의 모든 주요 변경 사항은 이 파일에 기록됩니다.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+이 문서의 형식은 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)를 따르며, [유의적 버전 명세](https://semver.org/spec/v2.0.0.html)를 준수합니다.
 
-## [Unreleased]
+## [1.0.0] - 2025-07-11
 
-### Added
-- Initial project structure setup.
-- Core application logic for parsing context JSON.
+### ✨ 추가된 기능 (Added)
+
+- **핵심 애플리케이션 로직**: 컨텍스트 데이터를 표시하고 병합하는 Streamlit 애플리케이션 구현.
+- **시스템 정보 스크립트 (Windows & Linux)**: 두 플랫폼을 모두 지원하는 모듈식 쉘 스크립트(`collect-base`, `collect-network`) 작성.
+- **Python 환경 수집기**: 패키지 목록 및 `torch`를 통한 CUDA 가용성 등 가상환경별 세부 정보를 수집하는 `collect-python.py` 스크립트 추가.
+- **인터랙티브 UI**: 스크립트 출력을 붙여넣고, 사용자가 직접 컨텍스트(IDE, Docker 등)를 추가할 수 있는 다중 입력 Streamlit UI 개발.
+- **안정적인 파싱 및 병합**: 여러 JSON 입력을 안전하게 파싱하고 단일 컨텍스트로 병합하는 핵심 로직을 `processor.py`에 구현.
+- **자동화된 테스트**: `pytest`와 `pytest.ini` 설정을 통해 핵심 로직에 대한 단위 테스트 환경 구축.
+- **CI 파이프라인**: GitHub Actions를 통합하여 Push 할 때마다 Linux 쉘 스크립트의 유효성을 자동으로 검증.
+- **디버그 로깅**: 최종 병합된 컨텍스트를 타임스탬프가 찍힌 JSON 파일로 `logs/` 디렉토리에 자동 저장하는 기능 구현.
+
+### 🔄 변경된 점 (Changed)
+
+- **아키텍처 개선**: 단일 스크립트 접근 방식에서 사용성과 유지보수성을 높이기 위해 모듈형 다중 스크립트 아키텍처로 발전.
+- **오류 처리 방식 개선**: 단일 오류 발생 시 전체 프로세스를 중단하는 대신, 성공적으로 파싱된 데이터만 병합하도록 오류 처리 방식을 유연하게 변경.
+- **의존성 목록 수집 방식 변경**: 불안정한 `pip list` 서브프로세스 호출 방식을 안정적인 표준 라이브러리 `importlib.metadata` 사용 방식으로 대체.
+
+---
+
+## [0.1.0] - 초기 개발 단계
+
+### ✨ 추가된 기능 (Added)
+
+- **프로젝트 범위 정의**: `README.md`를 통해 초기 프로젝트 목표와 기능 정의.
+- **프로젝트 구조 설계**: `src`, `tests`, `scripts` 및 설정 파일(`gitignore` 등)을 포함하는 전문적인 프로젝트 구조 수립.
+- **개념 증명(PoC)**: 컨텍스트 수집 스크립트와 Streamlit 인터페이스의 초기 버전 개발.
