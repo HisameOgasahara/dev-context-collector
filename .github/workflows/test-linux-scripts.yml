@@ -1,0 +1,37 @@
+name: Test Linux Scripts
+
+on:
+  push:
+    branches: [ main ] # main 브랜치에 push될 때 실행
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install jq
+      run: sudo apt-get update && sudo apt-get install -y jq
+
+    - name: Make scripts executable
+      run: chmod +x ./scripts/linux/*.sh
+
+    - name: Run and validate collect-base.sh
+      run: |
+        echo "--- Running collect-base.sh ---"
+        ./scripts/linux/collect-base.sh > base_output.json
+        cat base_output.json
+        echo "--- Validating JSON format ---"
+        jq . base_output.json
+
+    - name: Run and validate collect-network.sh
+      run: |
+        echo "--- Running collect-network.sh ---"
+        ./scripts/linux/collect-network.sh > network_output.json
+        cat network_output.json
+        echo "--- Validating JSON format ---"
+        jq . network_output.json
