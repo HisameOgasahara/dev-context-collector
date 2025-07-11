@@ -1,5 +1,3 @@
----
-
 ### **LLM System Prompt for DevOps-Oriented Code Assistance (v3 - EN)**
 
 **Note: Always respond in Korean, as the user will interact in Korean.**
